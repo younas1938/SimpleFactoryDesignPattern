@@ -1,26 +1,39 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-string cardType = "MoneyBack";
-ICreditCard cardDetails= null;
+//string cardType = "MoneyBack";
+//ICreditCard cardDetails= null;
 
-if (cardType.ToLower()=="moneyback")
-{
-    cardDetails = new MoneyBack();
-}
-else if (cardType.ToLower() == "titanium")
-{
-    cardDetails = new Titanium();
-}
-else if (cardType.ToLower() == "platinium")
-{
-    cardDetails = new Platinium();
-}
+//if (cardType.ToLower()=="moneyback")
+//{
+//    cardDetails = new MoneyBack();
+//}
+//else if (cardType.ToLower() == "titanium")
+//{
+//    cardDetails = new Titanium();
+//}
+//else if (cardType.ToLower() == "platinium")
+//{
+//    cardDetails = new Platinium();
+//}
+//if (cardDetails!=null)
+//{
+//    Console.WriteLine("CardType: "+ cardDetails.GetCardType());
+//    Console.WriteLine("CreditLimits: : "+ cardDetails.GetCreditLimit());
+//    Console.WriteLine("AnnualCharge: "+ cardDetails.GetAnnualCharge());
+//}
+ICreditCard cardDetails = CreditCardFactory.GetCreditCard("TITAnium");
 if (cardDetails!=null)
 {
-    Console.WriteLine("CardType: "+ cardDetails.GetCardType());
-    Console.WriteLine("CreditLimits: : "+ cardDetails.GetCreditLimit());
-    Console.WriteLine("AnnualCharge: "+ cardDetails.GetAnnualCharge());
+    Console.WriteLine("CardType: "+cardDetails.GetCardType());
+    Console.WriteLine("CreditLimit: "+cardDetails.GetCreditLimit());
+    Console.WriteLine("AnnualCharge: "+cardDetails.GetAnnualCharge());
 }
+else
+{
+    Console.WriteLine("Invalid Card Type");
+}
+Console.ReadLine();
+
 public interface ICreditCard
 {
     string GetCardType();
@@ -77,5 +90,25 @@ class Platinium : ICreditCard
     public int GetCreditLimit()
     {
             return 75000;
+    }
+}
+class CreditCardFactory
+{
+    public static ICreditCard GetCreditCard(string cardType)
+    {
+        ICreditCard cardDetails=null;
+        if (cardType.ToLower()=="moneyback")
+        {
+            cardDetails = new MoneyBack();
+        }
+        else if (cardType.ToLower()=="titanium")
+        {
+            cardDetails = new Titanium();
+        }
+        else if (cardType.ToLower()=="platinium")
+        {
+            cardDetails = new Platinium();
+        }
+        return cardDetails;
     }
 }
